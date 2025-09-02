@@ -1,0 +1,68 @@
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: twitter_clone
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - twitter_network
+
+  backend:
+    image: node:18
+    working_dir: /app
+    command: sh -c "npm install && npx prisma generate && npx prisma migrate deploy && npm run dev"
+    ports:
+      - "3002:3001"
+      - "5555:5555"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/twitter_clone?schema=public
+      JWT_SECRET: super-secret-jwt-key-for-development-only-change-in-production-2025
+      JWT_REFRESH_SECRET: super-secret-refresh-key-for-development-only-change-in-production-2025
+      CLIENT_URL: https://localhost:3000
+      NODE_ENV: development
+      USE_HTTPS: "true"
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
+      AWS_REGION: eu-north-1
+      AWS_S3_BUCKET: twitter-clone-media-petrut-dinu
+      S3_PUBLIC_ACCESS: "false"
+    volumes:
+      - ./backend:/app
+      - ./ssl:/app/ssl
+      - /app/node_modules
+    networks:
+      - twitter_network
+
+  frontend:
+    image: node:18
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      # Using localhost:3002 for browser access from host machine
+      VITE_API_URL: https://localhost:3002
+      VITE_WS_URL: wss://localhost:3002
+      USE_HTTPS: "true"
+    volumes:
+      - ./frontend:/app
+      - ./ssl:/app/ssl
+      - /app/node_modules
+    networks:
+      - twitter_network
+
+volumes:
+  postgres_data:
+
+networks:
+  twitter_network:
+    driver: bridge

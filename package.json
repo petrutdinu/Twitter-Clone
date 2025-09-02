@@ -1,0 +1,17 @@
+{
+  "name": "twitter-clone-monorepo",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "cd backend && npm install && npx prisma generate && npx tsc",
+    "start": "cd backend && npx prisma migrate deploy && npm start",
+    "dev": "cd backend && npm run dev"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.11"
+  }
+}
+
+
