@@ -109,9 +109,9 @@
 
 ### **Backend Powerhouse**
 ```
-┌────────────────────────────────────────────────┐
-│  ⚡ Robust Node.js Infrastructure              │
-├────────────────────────────────────────────────┤
+┌─────────────────────────────────────────────────┐
+│  ⚡ Robust Node.js Infrastructure               │
+├─────────────────────────────────────────────────┤
 │  • Express.js with TypeScript                  │
 │  • Prisma ORM with Type-Safe Database Access   │
 │  • JWT Authentication with Refresh Tokens      │
@@ -146,8 +146,6 @@
 </div>
 
 </div>
-
----
 
 ---
 
