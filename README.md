@@ -88,6 +88,9 @@
 <div align="center">
 
 ### **Frontend Excellence**
+
+<div align="center">
+
 ```
 ┌─────────────────────────────────────────────────┐
 │  🎨 Modern React Ecosystem                     │
@@ -102,6 +105,8 @@
 │  • Framer Motion for Smooth Animations         │
 └─────────────────────────────────────────────────┘
 ```
+
+</div>
 
 </div>
 
@@ -145,7 +150,6 @@
 
 </div>
 
-</div>
 
 ---
 
